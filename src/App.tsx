@@ -1,10 +1,6 @@
 import { useState } from "react";
 import "./App.css";
 
-const API_BASE = import.meta.env.PROD
-  ? "https://hello-vite-api.schovan.workers.dev"
-  : "";
-
 function App() {
   const [count, setCount] = useState(0);
   const [serverMessage, setServerMessage] = useState<string | null>(null);
@@ -16,7 +12,7 @@ function App() {
   const fetchHello = async () => {
     setLoading(true);
     try {
-      const res = await fetch(`${API_BASE}/api/hello`);
+      const res = await fetch(`/api/hello`);
       const data = await res.json();
       setServerMessage(data.message);
     } catch {
@@ -29,7 +25,7 @@ function App() {
   const fetchCount = async () => {
     setLoading(true);
     try {
-      const res = await fetch(`${API_BASE}/api/count`);
+      const res = await fetch(`/api/count`);
       const data = await res.json();
       setServerCount(data.count);
     } catch {
@@ -43,7 +39,7 @@ function App() {
     if (!name.trim()) return;
     setLoading(true);
     try {
-      const res = await fetch(`${API_BASE}/api/greet`, {
+      const res = await fetch(`/api/greet`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name }),
