@@ -1,1 +1,1 @@
-npx wrangler pages deploy
+npm run deploy

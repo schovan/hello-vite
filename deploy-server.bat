@@ -1,1 +1,1 @@
-npx wrangler deploy --config worker/wrangler.jsonc
+npm run deploy
