@@ -1,30 +1,30 @@
 {
   "configurations": [
     {
-      "name": "hello-vite",
-      "type": "node",
-      "request": "attach",
-      "websocketAddress": "ws://localhost:9229/hello-vite",
-      "resolveSourceMapLocations": null,
-      "attachExistingChildren": false,
-      "autoAttachChildProcesses": false,
-      "sourceMaps": true
-    },
-    {
-      "name": "Debug Client (Chrome)",
+      "name": "Client (Chrome)",
       "type": "chrome",
       "request": "launch",
       "url": "http://localhost:5173",
       "webRoot": "${workspaceFolder}",
       "sourceMaps": true
+    },
+    {
+      "name": "Server (Worker)",
+      "type": "node",
+      "request": "attach",
+      "websocketAddress": "ws://localhost:9229/hello",
+      "resolveSourceMapLocations": null,
+      "attachExistingChildren": false,
+      "autoAttachChildProcesses": false,
+      "sourceMaps": true
     }
   ],
   "compounds": [
     {
-      "name": "Debug Full Stack (Chrome)",
-      "configurations": ["hello-vite", "Debug Client (Chrome)"],
-      "stopAll": true,
-      "preLaunchTask": "dev"
+      "name": "Debug All",
+      "configurations": ["Client (Chrome)", "Server (Worker)"],
+      "preLaunchTask": "Dev Server",
+      "stopAll": true
     }
   ]
 }
