@@ -1,29 +1,30 @@
 {
+  "version": "0.2.0",
   "configurations": [
     {
-      "name": "Client (Chrome)",
+      "name": "Debug Server",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["tsx"],
+      "program": "${workspaceFolder}/server/index.ts",
+      "console": "integratedTerminal",
+      "skipFiles": ["<node_internals>/**"]
+    },
+    {
+      "name": "Debug Client (Chrome)",
       "type": "chrome",
       "request": "launch",
       "url": "http://localhost:5173",
       "webRoot": "${workspaceFolder}",
-      "sourceMaps": true
+      "sourceMaps": true,
+      "preLaunchTask": "start:vite"
     },
-    {
-      "name": "Server (Worker)",
-      "type": "node",
-      "request": "attach",
-      "websocketAddress": "ws://localhost:9229/hello",
-      "resolveSourceMapLocations": null,
-      "attachExistingChildren": false,
-      "autoAttachChildProcesses": false,
-      "sourceMaps": true
-    }
   ],
   "compounds": [
-    {
-      "name": "Debug All",
-      "configurations": ["Client (Chrome)", "Server (Worker)"],
-      "preLaunchTask": "Dev Server",
+{
+      "name": "Debug Full Stack (Chrome)",
+      "configurations": ["Debug Server", "Debug Client (Chrome)"],
       "stopAll": true
     }
   ]
