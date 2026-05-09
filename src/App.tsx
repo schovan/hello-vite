@@ -9,6 +9,8 @@ function App() {
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const debugPlaceholder = true;
+
   const fetchHello = async () => {
     setLoading(true);
     try {
