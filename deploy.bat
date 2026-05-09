@@ -1,2 +1,2 @@
 call npm run build
-npx wrangler deploy
+call npx wrangler deploy
