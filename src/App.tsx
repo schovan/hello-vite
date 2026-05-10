@@ -4,7 +4,7 @@ export default function App() {
   const [clientCount, setClientCount] = useState(0);
   const [serverCount, setServerCount] = useState<number | null>(null);
 
-  const apiUrl = window.__TAURI_INTERNALS__
+  const apiUrl = "__TAURI_INTERNALS__" in window
     ? "https://hello.schovan.workers.dev/api/counter"
     : "/api/counter";
 
