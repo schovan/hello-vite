@@ -2,3 +2,9 @@ node_modules/
 dist/
 .wrangler/
 .dev.vars
+
+# Tauri
+src-tauri/target/
+src-tauri/WixTools/
+src-tauri/NSIS/
+
