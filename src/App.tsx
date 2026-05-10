@@ -4,8 +4,12 @@ export default function App() {
   const [clientCount, setClientCount] = useState(0);
   const [serverCount, setServerCount] = useState<number | null>(null);
 
+  const apiUrl = window.__TAURI_INTERNALS__
+    ? "https://hello.schovan.workers.dev/api/counter"
+    : "/api/counter";
+
   const handleServerIncrement = async () => {
-    const response = await fetch("/api/counter");
+    const response = await fetch(apiUrl);
     const data: { value: number } = await response.json();
     setServerCount(data.value);
   };

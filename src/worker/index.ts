@@ -12,14 +12,26 @@ export class Counter extends DurableObject<Env> {
   }
 }
 
+const CORS_HEADERS = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+  "Access-Control-Allow-Headers": "Content-Type",
+};
+
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
+    if (request.method === "OPTIONS") {
+      return new Response(null, { status: 204, headers: CORS_HEADERS });
+    }
+
     const url = new URL(request.url);
 
     if (url.pathname === "/api/counter") {
       const stub = env.COUNTER.getByName("shared");
       const value = await stub.increment();
-      return Response.json({ value });
+      return new Response(JSON.stringify({ value }), {
+        headers: { "Content-Type": "application/json", ...CORS_HEADERS },
+      });
     }
 
     return new Response("Not Found", { status: 404 });
