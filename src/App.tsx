@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { MessageSender } from "./components/MessageSender";
+import { MessageDisplay } from "./components/MessageDisplay";
 
 function useLocalStorageCount(key: string) {
   const [count, setCount] = useState(() => {
@@ -56,6 +58,14 @@ export default function App() {
         <button className="cursor-pointer rounded bg-[#0f9d58] px-5 py-2.5 text-base text-white hover:bg-[#0b8045] disabled:cursor-not-allowed disabled:opacity-50" onClick={handleServerIncrement}>
           Increment
         </button>
+      </section>
+
+      <section className="mb-6 rounded-lg border border-[#333] bg-[#16213e] p-6">
+        <h2 className="mb-4 text-xl text-[#0f9d58]">Zustand Shared State</h2>
+        <div className="space-y-4">
+          <MessageSender />
+          <MessageDisplay />
+        </div>
       </section>
     </div>
   );
