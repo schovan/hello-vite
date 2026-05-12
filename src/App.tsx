@@ -1,7 +1,25 @@
 import { useState } from "react";
 
+function useLocalStorageCount(key: string) {
+  const [count, setCount] = useState(() => {
+    const stored = localStorage.getItem(key);
+    return stored ? Number(stored) : 0;
+  });
+
+  const set = (next: number | ((prev: number) => number)) => {
+    setCount((prev) => {
+      const value = typeof next === "function" ? next(prev) : next;
+      localStorage.setItem(key, String(value));
+      return value;
+    });
+  };
+
+  return [count, set] as const;
+}
+
 export default function App() {
   const [clientCount, setClientCount] = useState(0);
+  const [localCount, setLocalCount] = useLocalStorageCount("counter");
   const [serverCount, setServerCount] = useState<number | null>(null);
 
   const apiUrl = "__TAURI_INTERNALS__" in window
@@ -23,6 +41,13 @@ export default function App() {
         <p className="mb-4 text-center text-5xl font-bold text-white">{clientCount}</p>
         <button className="mr-2 cursor-pointer rounded bg-[#0f9d58] px-5 py-2.5 text-base text-white hover:bg-[#0b8045] disabled:cursor-not-allowed disabled:opacity-50" onClick={() => setClientCount((c) => c + 1)}>Increment</button>
         <button className="cursor-pointer rounded bg-[#0f9d58] px-5 py-2.5 text-base text-white hover:bg-[#0b8045] disabled:cursor-not-allowed disabled:opacity-50" onClick={() => setClientCount(0)}>Reset</button>
+      </section>
+
+      <section className="mb-6 rounded-lg border border-[#333] bg-[#16213e] p-6">
+        <h2 className="mb-4 text-xl text-[#0f9d58]">localStorage Counter</h2>
+        <p className="mb-4 text-center text-5xl font-bold text-white">{localCount}</p>
+        <button className="mr-2 cursor-pointer rounded bg-[#0f9d58] px-5 py-2.5 text-base text-white hover:bg-[#0b8045] disabled:cursor-not-allowed disabled:opacity-50" onClick={() => setLocalCount((c) => c + 1)}>Increment</button>
+        <button className="cursor-pointer rounded bg-[#0f9d58] px-5 py-2.5 text-base text-white hover:bg-[#0b8045] disabled:cursor-not-allowed disabled:opacity-50" onClick={() => setLocalCount(0)}>Reset</button>
       </section>
 
       <section className="mb-6 rounded-lg border border-[#333] bg-[#16213e] p-6">
